@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>400</width>
+    <height>300</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Event Tracker</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <widget class="QVBoxLayout" name="verticalLayout">
+    <item>
+     <widget class="QLineEdit" name="eventName">
+      <property name="placeholderText">
+       <string>Название события</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QDateEdit" name="eventDate">
+      <property name="calendarPopup">
+       <bool>true</bool>
+      </property>
+      <property name="date">
+       <date>2025-01-01</date>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QPushButton" name="addButton">
+      <property name="text">
+       <string>Добавить событие</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QListWidget" name="eventList"/>
+    </item>
+   </widget>
+  </widget>
+  <widget class="QMenuBar" name="menubar"/>
+  <widget class="QStatusBar" name="statusbar"/>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

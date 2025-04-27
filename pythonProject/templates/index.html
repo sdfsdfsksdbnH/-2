@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Event Tracker</title>
+    <script>
+        async function addEvent() {
+            const eventName = document.getElementById("eventName").value;
+            const eventDate = document.getElementById("eventDate").value;
+            if (!eventName || !eventDate) return alert("Введите название события и дату!");
+
+            const response = await fetch("/event", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ name: eventName, event_date: eventDate })
+            });
+
+            if (response.ok) {
+                document.getElementById("eventName").value = "";
+                document.getElementById("eventDate").value = "";
+                loadEvents();
+            }
+        }
+
+        async function loadEvents() {
+            const response = await fetch("/events");
+            const events = await response.json();
+
+            const eventList = document.getElementById("eventList");
+            eventList.innerHTML = "";
+            events.forEach(event => {
+                const li = document.createElement("li");
+                const daysText = event.days_remaining >= 0
+                    ? `Осталось ${event.days_remaining} дн.`
+                    : `Прошло ${Math.abs(event.days_remaining)} дн.`;
+                li.textContent = `${event.name} - ${event.event_date} (${daysText})`;
+                eventList.appendChild(li);
+            });
+        }
+
+        window.onload = loadEvents;
+    </script>
+</head>
+<body>
+    <h1>Event Tracker</h1>
+    <input type="text" id="eventName" placeholder="Название события">
+    <input type="date" id="eventDate">
+    <button onclick="addEvent()">Добавить событие</button>
+    <ul id="eventList"></ul>
+</body>
+</html>
